@@ -10,7 +10,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/ovmi-sh/0130-codex',
   footer: {
-    text: 'Nextra Docs Template',
+    text: 'Obsidian 13 Order Codex',
   },
 }
 
