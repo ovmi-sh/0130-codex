@@ -1,5 +1,5 @@
 {
-  "name": "0130-docs",
+  "name": "0130-codex",
   "version": "0.0.1",
   "description": "Nextra docs template",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ovmi-sh/0130-docs.git"
+    "url": "git+https://github.com/ovmi-sh/0130-codex.git"
   },
   "author": "Miclea Ovidiul <micleaovidiul@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ovmi-sh/0130-docs/issues"
+    "url": "https://github.com/ovmi-sh/0130-codex/issues"
   },
-  "homepage": "https://github.com/ovmi-sh/0130-docs#readme",
+  "homepage": "https://github.com/ovmi-sh/0130-codex#readme",
   "dependencies": {
     "next": "^13.0.6",
     "nextra": "latest",
