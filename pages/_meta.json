@@ -1,0 +1,17 @@
+{
+  "index": "Introduction",
+  "another": "Another Page",
+  "advanced": "Advanced (A Folder)",
+  "website": {
+    "title": "0130.global ↗",
+    "type": "page",
+    "href": "https://0130.global",
+    "newWindow": true
+  },
+  "blog": {
+    "title": "Blog ↗",
+    "type": "page",
+    "href": "https://blog.0130.global",
+    "newWindow": true
+  }
+}
