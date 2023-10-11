@@ -1,0 +1,116 @@
+# Emissary NFTs: Technical Overview
+
+Within the world of **Obsidian 13 Order**, the concept of an Emissary is not just metaphorical but also structural. When an Emissary NFT is minted, an associated Emissary Contract is deployed, solidifying the bond between the digital representation and its associated functionalities. This page delves into the technical details of this process.
+
+## 1. Emissary Token ERC-721 + 0130-1
+
+Every Emissary NFT has certain attributes and metadata that define its identity within the game:
+
+- **Token Standard:** ERC-721 (with 0130-1 metadata extension).
+- **Contract Address:** [0x1234...abcd](https://etherscan.io/address/0x1234...abcd)
+- **Total Supply:** Dynamic, based on user registrations and collaborations.
+
+### Attributes and Metadata
+
+Each Emissary NFT comes with an associated set of metadata:
+
+- `id`: A unique identifier for each Emissary NFT.
+- `name`: Unique identifier of the Emissary.
+- `image`: A URI pointing to the Emissary's image representation.
+- `owner_address`: Ethereum address of the NFT's owner.
+- `contract_address`: Address of the associated Emissary Contract.
+- `attributes`: Array containing traits.
+- `mint_date`: Timestamp of when the Emissary was minted.
+
+### 1.2 Metadata Format
+
+Emissary NFTs come with standardized metadata, stored in JSON format:
+
+```json
+{
+    "id": number,
+    "name": string,
+    "image": string,
+    "owner_address": address,
+    "contract_address": address,
+    "attributes": [
+        {
+            "trait_type": string,
+            "value": number
+        },
+    ],
+    "mint_date": number
+}
+```
+
+## 2. The Emissary Contract (0130-2)
+
+Upon minting an Emissary NFT, an Emissary Contract is simultaneously deployed on the Ethereum blockchain. This contract encapsulates game logic and functionalities tied specifically to the Emissary.
+
+Emissary Contract contains a metadata struct, which is used to populate the Emissary NFT's metadata:
+
+```json
+{
+    "id": number,
+    "name": string,
+    "image": string,
+    "owner_address": address,
+    "contract_address": address,
+    "attributes": [
+        {
+            "trait_type": string,
+            "value": number
+        },
+    ],
+    "mint_date": number
+}
+```
+
+### 2.1 Functions of the Emissary Contract
+
+- _Manage Arcane Bonds_: Establish, break, or modify bonds with other Emissaries.
+- _Inventory Management_: Manage in-game assets and items associated with the Emissary.
+- _Quest Interactions_: Engage in collaborative or solo quests, affecting the Emissary's progress.
+
+### 2.2 Contract Deployment and Ownership
+
+Once deployed, the Emissary Contract's owner is automatically set to the Ethereum address of the user for whom the Emissary NFT is minted. This ensures that only the rightful owner can exercise the functionalities embedded within the contract.
+
+### 3. Interacting with Emissary Contracts
+
+Developers and users wishing to interact directly with an Emissary Contract can do so via dedicated smart contract functions. It's imperative to use verified and secure methods to maintain game integrity.
+
+## 4. Emissary NFTs Contract Functions
+
+### Minting Emissaries
+
+When a player joins the game:
+
+```solidity
+function mintEmissaryNFT(address to, string memory name) public onlyOwner {
+    emissaryContractCreationAddress = deployEmissaryContract(to, name);
+    EmissaryContract emissaryInstance = EmissaryContract(emissaryContractCreationAddress);
+
+    uint256 newTokenId = _tokenIdCounter.current();
+    _safeMint(to, newTokenId);
+    _setTokenMetadata(newTokenId, emissaryInstance.getMetadata());
+    _tokenIdCounter.increment();
+}
+```
+
+Other functions relevant to this process:
+
+```solidity
+function deployEmissaryContract(address owner, string memory name) public onlyOwner (address) {
+    EmissaryContract newEmissary = new EmissaryContract(owner, name);
+    return address(newEmissary);
+}
+
+function getMetadata() public view returns (string memory) {
+    return metadata;
+}
+```
+
+---
+
+Remember, this is a high-level overview and doesn't include nuances like error handling, access control (other than onlyOwner in the minting function), etc. In the real-world game contracts, additional considerations and robustness are added.

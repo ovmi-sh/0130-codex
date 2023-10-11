@@ -1,0 +1,84 @@
+# Arcane Bonds: Technical Mechanics
+
+Arcane Bonds are vital connections between Emissaries in the world of Obsidian 13 Order. On the technical side, these bonds are stored and managed through smart contract interactions and are deeply tied with the Emissary NFTs and their dedicated Emissary Contracts.
+
+## Emissary Contracts
+
+When an Emissary NFT is minted, it is not just an ordinary token. Each minted NFT is associated with its own unique _EmissaryContract_ contract. This dedicated contract is deployed simultaneously with the NFT minting and keeps essential information about the Emissary, along with the Arcane Bond metadata.
+
+## Arcane Bonds as Metadata Links
+
+Arcane Bonds are not separate NFTs. Instead, they exist as metadata links within the _EmissaryContract_ contract. When two Emissaries form a bond, a connection is established between their associated _EmissaryContract_ contracts. This connection is stored as metadata that reflects the strength and nature of their bond.
+
+### Bond Strength
+
+Bond strength indicates the depth of the connection between two Emissaries. It starts at *1n* upon formation and can vary based on in-game events, challenges completed together, and time elapsed.
+
+The strength of an Arcane Bond can be represented by a numerical value, dynamically calculated based on:
+
+- Completing quests together can increase bond strength.
+- Time since bond creation (the longer, the stronger).
+- Shared relics and artifacts.
+
+## 1. Definition of an Arcane Bond
+
+An Arcane Bond is essentially a metadata link between two Emissary NFTs. The strength and attributes of this bond can change over time, influenced by various in-game actions and events.
+
+```solidity
+struct ArcaneBond {
+  uint256 BondID;
+  address Emissary1;
+  address Emissary2;
+  uint256 Strength;
+  BondAttributes Attributes;
+}
+```
+
+### 1.1 Structure
+
+- **BondID:** A unique identifier for each bond.
+- **Emissary1:** Address of the first Emissary NFT involved in the bond.
+- **Emissary2:** Address of the second Emissary NFT involved in the bond.
+- **Strength:** A numerical value that quantifies the bond's power.
+- **Attributes:** A struct that stores additional information about the bond.
+
+### 1.2 Retrieving Arcane Bond Information via Smart Contracts
+
+You can query the _EmissaryContract_ contract of a specific Emissary to understand its bonds:
+
+```solidity
+function getArcaneBonds() public view returns (ArcaneBond[] memory)
+```
+
+This function returns the Arcane Bond details between the Emissary and the other Emissary specified in the `otherEmissary` parameter.
+
+```solidity
+function getArcaneBondWith(address otherEmissary) public view returns (ArcaneBond memory)
+```
+
+### Retrieiving Arcane Bond Information via API
+
+To retrieve information about an Arcane Bond, developers can interact with our dedicated API endpoint:
+
+`GET https://api.0130.global/v1/arcaneBonds?bondID=xxxx`
+
+Replace `xxxx` with the desired BondID. The API will return the bond's metadata in JSON format:
+
+```json
+{
+  "BondID": bigint,
+  "Emissary1": address,
+  "Emissary2": address,
+  "Strength": bigint,
+  "Attributes": {
+    {
+        "type": string,
+        "value": string | bigint
+    }
+  }
+}
+```
+
+---
+
+Remember, this is a high-level overview and doesn't include nuances like error handling, access control (other than onlyOwner in the minting function), etc. In the real-world game contracts, additional considerations and robustness are added.

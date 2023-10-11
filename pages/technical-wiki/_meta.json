@@ -1,0 +1,11 @@
+{
+    "introduction": "Introduction",
+    "emissary-nfts": "Emissary NFTs",
+    "arcane-bonds": "Arcane Bonds",
+    "api": {
+        "title": "APIs & Endpoints ↗",
+        "type": "page",
+        "href": "https://api.0130.global",
+        "newWindow": true
+    }
+}
